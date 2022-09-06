@@ -198,7 +198,7 @@ def create_app(test_config=None):
         content = request.get_json() 
         previousQuestions = content.get('previous_questions', None)
         quizCategory = content.get('quiz_category', None)
-        try;
+        try:
             if int(quizCategory['id']) == 0:
                 all_quizzes = Question.query.filter(Question.id.not_in(previousQuestions)).all()
                 all_random_quizzes = random.choice(all_quizzes)
