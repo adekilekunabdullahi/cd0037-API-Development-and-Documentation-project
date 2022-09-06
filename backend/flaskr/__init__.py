@@ -5,9 +5,9 @@ from flask_cors import CORS
 import random
 import sys
 from models import setup_db, Question, Category
-from dotenv import load_dotenv
 
-load_dotenv()
+
+
 
 QUESTIONS_PER_PAGE = 10
 
@@ -27,7 +27,7 @@ def create_app(test_config=None):
     @app.after_request
     def after_request(response):
        response.headers.add('Access-Control-Allow-Methods', 'GET, POST, DELETE')
-       #response.headers.add('Access-Control-Allow-Origin', '*')
+       response.headers.add('Access-Control-Allow-Origin', '*')
        response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
        return response
     """
@@ -91,12 +91,12 @@ def create_app(test_config=None):
     """
     @app.route('/questions/<int:delete_id>', methods=['DELETE'])
     def delete_questions(         delete_id):
-            question = Question.query.filter(Question.id == delete_id).one_or_none()
-            if question is None:
-                abort(404)
-            else:
-                question.delete()
-            return jsonify({
+        question = Question.query.filter(Question.id == delete_id).one_or_none()
+        if question is None:
+            abort(404)
+        else:
+            question.delete()
+        return jsonify({
                 'success': True
                 })
     """
@@ -195,15 +195,15 @@ def create_app(test_config=None):
     """
     @app.route('/quizzes', methods=['POST'])
     def show_quizzes():
-     content = request.get_json() 
-     previousQuestions = content.get('previous_questions', None)
-     quizCategory = content.get('quiz_category', None)
-    
-     if int(quizCategory['id']) == 0:
-        all_quizzes = Question.query.filter(Question.id.not_in(previousQuestions)).all()
-        all_random_quizzes = random.choice(all_quizzes)
-        formatted_all_quiz = all_random_quizzes.format()
-        return jsonify({
+        content = request.get_json() 
+        previousQuestions = content.get('previous_questions', None)
+        quizCategory = content.get('quiz_category', None)
+        try;
+           if int(quizCategory['id']) == 0:
+           all_quizzes = Question.query.filter(Question.id.not_in(previousQuestions)).all()
+           all_random_quizzes = random.choice(all_quizzes)
+           formatted_all_quiz = all_random_quizzes.format()
+           return jsonify({
             'success': True,
             'question': formatted_all_quiz
             })
