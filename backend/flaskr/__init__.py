@@ -75,7 +75,7 @@ def create_app(test_config=None):
             abort(404)
         else:
            pass
-       return jsonify({
+        return jsonify({
            'success':  True,
            'questions' : paginated_questions,
            'total_questions' : len(response),
