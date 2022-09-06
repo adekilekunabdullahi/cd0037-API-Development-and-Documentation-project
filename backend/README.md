@@ -89,8 +89,104 @@ You will need to provide detailed documentation of your API endpoints including 
   "6": "Sports"
 }
 ```
+`GET '/api/v1.0/questions'`
+- fetches a list of questions, number of total questions and dictionary of categories
+- Request Arguments: None
+- Returns: A list with a key `questions`, `total_questions`, an object with a key `categories` and a string with a key `current_category`.
+```json
+[
+        {
+            'id': 1,
+            'question': 'This is a question',
+            'answer': 'This is an answer',
+            'difficulty': 5,
+            'category': 2
+        },
+    ],
+     100,
+    { '1' : "Science",
+    '2' : "Art",
+    '3' : "Geography",
+    '4' : "History",
+    '5' : "Entertainment",
+    '6' : "Sports" },
+    'History'
+   ```
+`GET '/api/v1.0/categories'`
+- fetches a list of questions, number of total questions and current category 
+- Request Arguments: None
+- Returns: A list with a single key `questions`, an integer with a key `total_questions` and a string with a key `current_category` in key value pairs
+ [
+        {
+            'id': 1,
+            'question': 'This is a question',
+            'answer': 'This is an answer',
+            'difficulty': 5,
+            'category': 4
+        },
+    ],
+     100,
+    'History'
 
-## Testing
+`DELETE 'api/v1.0/questions/${id}'`
+
+-Deletes a specified question using the id of the question
+-Request Arguments: `id` - integer
+-Returns: Does not return anything besides the appropriate HTTP status code.
+
+`POST 'api/v1.0/quizzes`
+
+-Sends a post request in order to get the next question
+-Request Arguments:
+{
+    'previous_questions': [1, 4, 20, 15]
+    quiz_category': 'current category'
+ }
+-Returns: a single new question object
+{
+    'question': {
+        'id': 1,
+        'question': 'This is a question',
+        'answer': 'This is an answer',
+        'difficulty': 5,
+        'category': 4
+    }
+}
+
+`POST 'api/v1.0/questions'`
+
+-Sends a post request in order to add a new question
+-Request Body:
+{
+    'question':  'Heres a new question string',
+    'answer':  'Heres a new answer string',
+    'difficulty': 1,
+    'category': 3,
+}
+-Returns: Does not return any new data
+
+`POST 'api/v1.0/questions'
+
+Sends a post request in order to search for a specific question by search term
+Request Body:
+{
+    'searchTerm': 'this is the term the user is looking for'
+}
+
+Returns: any array of questions, a number of totalQuestions that met the search term and the current category string
+{
+    'questions': [
+        {
+            'id': 1,
+            'question': 'This is a question',
+            'answer': 'This is an answer',
+            'difficulty': 5,
+            'category': 5
+        },
+    ],
+    'totalQuestions': 100,
+    'currentCategory': 'Entertainment'
+}
 
 Write at least one test for the success and at least one error behavior of each endpoint using the unittest library.
 
